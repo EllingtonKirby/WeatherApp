@@ -18,9 +18,7 @@ open class App : DaggerApplication(), HasActivityInjector, HasSupportFragmentInj
   @Inject lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
   @Inject lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
-  /**
-   *
-   */
+
   override fun activityInjector(): DispatchingAndroidInjector<Activity>? {
     return activityInjector
   }
