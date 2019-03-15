@@ -17,7 +17,7 @@ interface Api {
   @GET("/data/2.5/weather")
   fun getLocationByCoordinates(
     @Query("lat") latitude: String,
-    @Query("long") longitude: String,
+    @Query("lon") longitude: String,
     @Query("units") units: String
   ): Single<Result<WeatherDataResponse>>
 

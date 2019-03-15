@@ -5,9 +5,9 @@ data class WeatherDataResponse(
 )
 
 data class TemperatureData(
-  val temp: Double,
-  val pressure: Double,
-  val humidity: Double,
-  val tempMin: Double,
-  val tempMax: Double
+  val temp: Float,
+  val pressure: Float,
+  val humidity: Float,
+  val tempMin: Float,
+  val tempMax: Float
 )

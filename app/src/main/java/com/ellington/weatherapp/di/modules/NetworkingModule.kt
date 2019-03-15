@@ -1,6 +1,7 @@
 package com.ellington.weatherapp.di.modules
 
 import android.content.Context
+import android.location.LocationManager
 import com.ellington.weatherapp.api.api.client.Api
 import com.ellington.weatherapp.api.api.client.ApiClient
 import com.ellington.weatherapp.api.api.interceptors.ApiKeyInterceptor
@@ -53,4 +54,9 @@ class NetworkingModule {
   @PerApplication
   @Provides
   fun providesApi(retrofit: Retrofit): ApiClient = ApiClient(retrofit.create(Api::class.java))
+
+  @PerApplication
+  @Provides
+  fun providesLocationManager(context: Context): LocationManager =
+    context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 }

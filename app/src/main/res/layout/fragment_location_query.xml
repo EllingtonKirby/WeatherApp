@@ -27,147 +27,167 @@
 
     </android.support.v7.widget.Toolbar>
   </android.support.design.widget.AppBarLayout>
-
-  <android.support.constraint.ConstraintLayout
+  <ScrollView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginEnd="@dimen/medium_margin"
       android:layout_marginStart="@dimen/medium_margin"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"
       >
-    <android.support.v7.widget.CardView
-        android:id="@+id/location_query_search_root"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/large_margin"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@style/CardView.Light"
         >
-      <android.support.design.widget.TextInputLayout
-          android:id="@+id/location_query_search_layout"
+      <android.support.v7.widget.CardView
+          android:id="@+id/location_query_search_root"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:padding="@dimen/medium_margin"
+          android:layout_marginTop="@dimen/large_margin"
+          app:layout_constraintTop_toTopOf="parent"
+          style="@style/CardView.Light"
           >
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/location_query_search"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/location_query_search_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:drawablePadding="@dimen/medium_margin"
-            android:drawableStart="@drawable/ic_search_black_24dp"
-            android:hint="@string/location_query_hint"
+            android:padding="@dimen/medium_margin"
+            >
+          <android.support.design.widget.TextInputEditText
+              android:id="@+id/location_query_search"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:drawablePadding="@dimen/medium_margin"
+              android:drawableStart="@drawable/ic_search_black_24dp"
+              android:hint="@string/location_query_hint"
+              />
+        </android.support.design.widget.TextInputLayout>
+      </android.support.v7.widget.CardView>
+
+      <android.support.v7.widget.CardView
+          android:id="@+id/search_query_submit_root"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/medium_margin"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/location_query_search_root"
+          style="@style/CardView.Light"
+          >
+        <TextView
+            android:id="@+id/search_query_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/large_margin"
+            android:text="@string/submit"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
             />
-      </android.support.design.widget.TextInputLayout>
-    </android.support.v7.widget.CardView>
+      </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/search_query_submit_root"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location_query_search_root"
-        style="@style/CardView.Light"
-        >
+
       <TextView
-          android:id="@+id/search_query_submit"
+          android:id="@+id/search_query_units_label"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/medium_margin"
+          android:gravity="center"
+          android:text="@string/select_units_label"
+          app:layout_constraintTop_toBottomOf="@id/search_query_submit_root"
+          />
+
+      <ProgressBar
+          android:id="@+id/search_query_progress"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:background="@color/colorPrimaryDark"
-          android:foreground="?selectableItemBackground"
-          android:padding="@dimen/large_margin"
-          android:text="@string/submit"
-          android:textAllCaps="true"
-          android:textColor="@android:color/white"
+          android:visibility="gone"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/search_query_units_label"
           />
-    </android.support.v7.widget.CardView>
 
-
-    <TextView
-        android:id="@+id/search_query_units_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/medium_margin"
-        android:gravity="center"
-        android:text="@string/select_units_label"
-        app:layout_constraintTop_toBottomOf="@id/search_query_submit_root"
-        />
-
-    <android.support.v7.widget.CardView
-        android:id="@+id/search_query_select_metric_root"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintEnd_toStartOf="@id/search_query_select_imperial_root"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_query_units_label"
-        style="@style/CardView.Light"
-        >
-      <TextView
-          android:id="@+id/search_query_select_metric"
+      <android.support.v7.widget.CardView
+          android:id="@+id/search_query_select_metric_root"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:background="@drawable/button_selector"
-          android:clickable="true"
-          android:focusable="true"
-          android:foreground="?selectableItemBackground"
-          android:padding="@dimen/large_margin"
-          android:text="@string/metric"
-          android:textAllCaps="true"
-          android:textColor="@drawable/text_selector"
-          />
-    </android.support.v7.widget.CardView>
+          android:layout_marginTop="@dimen/medium_margin"
+          app:layout_constraintEnd_toStartOf="@id/search_query_select_imperial_root"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/search_query_units_label"
+          style="@style/CardView.Light"
+          >
+        <TextView
+            android:id="@+id/search_query_select_metric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/large_margin"
+            android:text="@string/metric"
+            android:textAllCaps="true"
+            android:textColor="@drawable/text_selector"
+            />
+      </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/search_query_select_imperial_root"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/medium_margin"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/search_query_select_metric_root"
-        app:layout_constraintTop_toBottomOf="@id/search_query_units_label"
-        style="@style/CardView.Light"
-        >
-      <TextView
-          android:id="@+id/search_query_select_imperial"
+      <android.support.v7.widget.CardView
+          android:id="@+id/search_query_select_imperial_root"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:background="@drawable/button_selector"
-          android:clickable="true"
-          android:focusable="true"
-          android:foreground="?selectableItemBackground"
-          android:padding="@dimen/large_margin"
-          android:text="@string/imperial"
-          android:textAllCaps="true"
-          android:textColor="@drawable/text_selector"
+          android:layout_marginTop="@dimen/medium_margin"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/search_query_select_metric_root"
+          app:layout_constraintTop_toBottomOf="@id/search_query_units_label"
+          style="@style/CardView.Light"
+          >
+        <TextView
+            android:id="@+id/search_query_select_imperial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:padding="@dimen/large_margin"
+            android:text="@string/imperial"
+            android:textAllCaps="true"
+            android:textColor="@drawable/text_selector"
+            />
+      </android.support.v7.widget.CardView>
+
+
+      <com.github.mikephil.charting.charts.BarChart
+          android:id="@+id/search_query_temp_graph"
+          android:layout_width="match_parent"
+          android:layout_height="350dp"
+          android:background="@color/colorPrimary"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/search_query_select_imperial_root"
           />
-    </android.support.v7.widget.CardView>
 
+      <com.github.mikephil.charting.charts.BarChart
+          android:id="@+id/search_query_pressure_graph"
+          android:layout_width="match_parent"
+          android:layout_height="350dp"
+          android:background="@color/colorPrimary"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/search_query_temp_graph"
+          />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/search_query_temp_graph"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/search_query_select_imperial_root"
-        />
+      <com.github.mikephil.charting.charts.BarChart
+          android:id="@+id/search_query_humidity_graph"
+          android:layout_width="match_parent"
+          android:layout_height="350dp"
+          android:background="@color/colorPrimary"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@id/search_query_pressure_graph"
+          />
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/search_query_pressure_graph"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/search_query_temp_graph"
-        />
-
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/search_query_humidity_graph"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@id/search_query_humidity_graph"
-        />
-
-  </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+  </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

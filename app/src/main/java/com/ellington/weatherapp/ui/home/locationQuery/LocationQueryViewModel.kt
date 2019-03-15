@@ -1,6 +1,12 @@
 package com.ellington.weatherapp.ui.home.locationQuery
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.MutableLiveData
+import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
+import android.os.Bundle
+import android.os.Looper
 import android.util.Log
 import com.ellington.weatherapp.api.api.client.ApiClient
 import com.ellington.weatherapp.api.api.models.WeatherGraphData
@@ -12,11 +18,16 @@ import com.ellington.weatherapp.utils.Patterns
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
-class LocationQueryViewModel @Inject constructor(val apiClient: ApiClient) : BaseViewModel() {
-
+class LocationQueryViewModel @Inject constructor(
+  val apiClient: ApiClient,
+  val locationManager: LocationManager
+) : BaseViewModel(), LocationListener {
   val toastData: MutableLiveData<String> = MutableLiveData()
+
   val graphData: MutableLiveData<WeatherGraphData> = MutableLiveData()
   val units: MutableLiveData<WeatherUnits> = MutableLiveData()
+  val showLoading: MutableLiveData<Boolean> = MutableLiveData()
+  val setQuery: MutableLiveData<String> = MutableLiveData()
 
   private var fetchSub: Disposable? = null
 
@@ -25,6 +36,7 @@ class LocationQueryViewModel @Inject constructor(val apiClient: ApiClient) : Bas
       toastData.postValue("Missing query string")
       return
     }
+    showLoading.postValue(true)
     Log.e("Query", query)
     val latLongMatcher = Patterns.latLong.matcher(query)
     val zipCodeMatcher = Patterns.zipCode.matcher(query)
@@ -63,9 +75,11 @@ class LocationQueryViewModel @Inject constructor(val apiClient: ApiClient) : Bas
       .subscribe(
         {
           graphData.postValue(WeatherGraphData.createFromResponse(it))
+          showLoading.postValue(false)
         },
         {
           toastData.postValue(it.message)
+          showLoading.postValue(false)
         }
       )
   }
@@ -78,9 +92,11 @@ class LocationQueryViewModel @Inject constructor(val apiClient: ApiClient) : Bas
       .subscribe(
         {
           graphData.postValue(WeatherGraphData.createFromResponse(it))
+          showLoading.postValue(false)
         },
         {
           toastData.postValue(it.message)
+          showLoading.postValue(false)
         }
       )
   }
@@ -93,9 +109,11 @@ class LocationQueryViewModel @Inject constructor(val apiClient: ApiClient) : Bas
       .subscribe(
         {
           graphData.postValue(WeatherGraphData.createFromResponse(it))
+          showLoading.postValue(false)
         },
         {
           toastData.postValue(it.message)
+          showLoading.postValue(false)
         }
       )
   }
@@ -106,5 +124,40 @@ class LocationQueryViewModel @Inject constructor(val apiClient: ApiClient) : Bas
 
   fun setImperialSelected() {
     units.postValue(IMPERIAL)
+  }
+
+  @SuppressLint("MissingPermission")
+  fun checkLocation() {
+    toastData.postValue("Fetching current location")
+    showLoading.postValue(true)
+
+    val providers = locationManager.getProviders(true)
+    if (locationManager.getLastKnownLocation(providers.get(0)) != null) {
+      val location = locationManager.getLastKnownLocation(providers.get(0))
+      setQuery.postValue("${location.latitude},${location.longitude}")
+      showLoading.postValue(false)
+    } else {
+      locationManager.requestSingleUpdate(
+        providers.get(0), this, Looper.getMainLooper()
+      )
+    }
+  }
+
+  override fun onLocationChanged(location: Location?) {
+    setQuery.postValue("${location?.latitude},${location?.longitude}")
+    showLoading.postValue(false)
+  }
+
+  override fun onStatusChanged(
+    p0: String?,
+    p1: Int,
+    p2: Bundle?
+  ) {
+  }
+
+  override fun onProviderEnabled(p0: String?) {
+  }
+
+  override fun onProviderDisabled(p0: String?) {
   }
 }

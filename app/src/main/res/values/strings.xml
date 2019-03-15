@@ -2,9 +2,12 @@
   <string name="app_name">Weather App</string>
   <string name="preferences_file_key">weather_app_prefs</string>
   <string name="location_query_toolbar_title">Location Query</string>
-  <string name="location_query_hint">Query by city name, zipcode, or lat/long</string>
+  <string name="location_query_hint">Query by city name, zipcode, or lat,long</string>
   <string name="metric">Metric</string>
   <string name="imperial">Imperial</string>
   <string name="select_units_label">Select the units</string>
   <string name="submit">submit</string>
+  <string name="temperature_data">Temperature Data</string>
+  <string name="pressure_data">Pressure Data</string>
+  <string name="humidity_data">Humidity Data</string>
 </resources>
