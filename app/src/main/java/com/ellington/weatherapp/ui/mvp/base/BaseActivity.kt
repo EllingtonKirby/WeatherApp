@@ -41,14 +41,4 @@ abstract class BaseActivity : DaggerAppCompatActivity(), HasSupportFragmentInjec
     super.onCreate(savedInstanceState)
     setContentView(layoutResourceId)
   }
-
-  fun View.showSnackbar(
-    s: String,
-    len: Int = Snackbar.LENGTH_LONG,
-    f: Snackbar.() -> Unit
-  ) {
-    val snack = Snackbar.make(this, s, len)
-    snack.f()
-    snack.show()
-  }
 }

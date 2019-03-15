@@ -6,4 +6,5 @@
   <string name="metric">Metric</string>
   <string name="imperial">Imperial</string>
   <string name="select_units_label">Select the units</string>
+  <string name="submit">submit</string>
 </resources>

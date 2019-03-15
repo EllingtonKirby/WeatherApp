@@ -3,6 +3,7 @@ package com.ellington.weatherapp.ui.mvp.base
 import android.content.Context
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,5 +43,16 @@ abstract class BaseFragment : Fragment() {
   override fun onAttach(context: Context?) {
     AndroidSupportInjection.inject(this)
     super.onAttach(context)
+  }
+
+
+  public fun View.showSnackbar(
+    s: String,
+    len: Int = Snackbar.LENGTH_LONG,
+    f: Snackbar.() -> Unit
+  ) {
+    val snack = Snackbar.make(this, s, len)
+    snack.f()
+    snack.show()
   }
 }
